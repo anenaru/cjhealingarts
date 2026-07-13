@@ -18,6 +18,11 @@ export function SiteFooter() {
           height={90}
           className="h-16 w-auto object-contain"
         />
+        <p className="text-sm text-muted-foreground">
+          CJ Healing Arts is a Vocational Rehab Provider
+          <br />
+          #F814615794001
+        </p>
       </div>
 
       <div className="mt-16 flex flex-wrap items-center justify-center gap-8 border-t border-border pt-10">
@@ -55,13 +60,6 @@ export function SiteFooter() {
         </p>
       </div>
 
-      <div className="mt-6 flex justify-end">
-        <p className="text-right text-sm text-muted-foreground">
-          CJ Healing Arts is a Vocational Rehab Provider
-          <br />
-          #F814615794001
-        </p>
-      </div>
     </footer>
   )
 }
