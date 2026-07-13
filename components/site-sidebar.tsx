@@ -8,7 +8,7 @@ const navItems = [
   { label: 'Home', href: '/#home', index: '01' },
   { label: 'Services', href: '/#services', index: '02' },
   { label: 'Support Independence', href: '/#support', index: '03' },
-  { label: 'Insights & Resources', href: '/insights', index: '04' },
+  { label: 'News & Resources', href: '/insights', index: '04' },
   { label: 'About Us', href: '/about-us', index: '05' },
   { label: 'Contact Us', href: '/contact-us', index: '06' },
 ]

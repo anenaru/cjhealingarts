@@ -3,20 +3,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Phone, Globe } from 'lucide-react'
 import { SiteSidebar } from '@/components/site-sidebar'
+import { SiteFooter } from '@/components/site-footer'
 import { getAllInsightPosts, urlFor } from '@/lib/sanity'
-import { insightPosts } from '@/lib/insights'
 
 export const metadata: Metadata = {
-  title: 'Insights & Resources | CJ Healing Arts',
+  title: 'News & Resources | CJ Healing Arts',
   description:
     'Empowering tools, community highlights, and resources for individuals navigating career growth, independent living, and wellness.',
 }
 
-// Revalidate every 60 seconds (ISR) so new Sanity posts appear without a full redeploy
 export const revalidate = 60
 
-export default async function InsightsPage() {
-  // Try Sanity first; fall back to static data if env vars aren't configured yet
+export default async function NewsPage() {
   let posts: Array<{
     slug: string
     title: string
@@ -43,18 +41,7 @@ export default async function InsightsPage() {
       }))
     }
   } catch {
-    // Sanity not configured yet — use static fallback
-  }
-
-  if (posts.length === 0) {
-    posts = insightPosts.map((p) => ({
-      slug: p.slug,
-      title: p.title,
-      author: p.author,
-      date: p.date,
-      imageUrl: p.image,
-      excerpt: p.excerpt,
-    }))
+    // Sanity fetch failed
   }
 
   return (
@@ -64,7 +51,7 @@ export default async function InsightsPage() {
         <section className="px-6 py-14 sm:px-10 md:py-20 lg:px-16">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-balance text-4xl font-bold tracking-tight md:text-5xl">
-              Insights &amp; Resources
+              News &amp; Resources
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
               Empowering tools, community highlights, and resources for
@@ -74,47 +61,53 @@ export default async function InsightsPage() {
           </div>
 
           <div className="mx-auto mt-14 flex max-w-5xl flex-col gap-14 md:mt-20 md:gap-20">
-            {posts.map((post) => (
-              <article
-                key={post.slug}
-                className="grid items-center gap-6 md:grid-cols-2 md:gap-10"
-              >
-                <Link
-                  href={`/insights/${post.slug}`}
-                  className="block overflow-hidden rounded-xl"
+            {posts.length === 0 ? (
+              <p className="text-center text-muted-foreground">
+                No posts yet. Check back soon.
+              </p>
+            ) : (
+              posts.map((post) => (
+                <article
+                  key={post.slug}
+                  className="grid items-center gap-6 md:grid-cols-2 md:gap-10"
                 >
-                  <Image
-                    src={post.imageUrl || '/placeholder.svg'}
-                    alt={post.title}
-                    width={640}
-                    height={420}
-                    className="aspect-[3/2] w-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                </Link>
-                <div>
-                  <h2 className="text-balance text-2xl font-bold tracking-tight md:text-3xl">
-                    <Link
-                      href={`/insights/${post.slug}`}
-                      className="transition-colors hover:text-muted-foreground"
-                    >
-                      {post.title}
-                    </Link>
-                  </h2>
-                  <p className="mt-3 text-muted-foreground">
-                    {post.author} &middot; {post.date}
-                  </p>
-                  <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-                    {post.excerpt}
-                  </p>
                   <Link
                     href={`/insights/${post.slug}`}
-                    className="mt-6 inline-flex items-center rounded-md bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
+                    className="block overflow-hidden rounded-xl"
                   >
-                    Read more
+                    <Image
+                      src={post.imageUrl || '/placeholder.svg'}
+                      alt={post.title}
+                      width={640}
+                      height={420}
+                      className="aspect-[3/2] w-full object-cover transition-transform duration-300 hover:scale-105"
+                    />
                   </Link>
-                </div>
-              </article>
-            ))}
+                  <div>
+                    <h2 className="text-balance text-2xl font-bold tracking-tight md:text-3xl">
+                      <Link
+                        href={`/insights/${post.slug}`}
+                        className="transition-colors hover:text-muted-foreground"
+                      >
+                        {post.title}
+                      </Link>
+                    </h2>
+                    <p className="mt-3 text-muted-foreground">
+                      {post.author} &middot; {post.date}
+                    </p>
+                    <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
+                      {post.excerpt}
+                    </p>
+                    <Link
+                      href={`/insights/${post.slug}`}
+                      className="mt-6 inline-flex items-center rounded-md bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
+                    >
+                      Read more
+                    </Link>
+                  </div>
+                </article>
+              ))
+            )}
           </div>
 
           <div className="mx-auto mt-20 flex max-w-5xl flex-wrap items-center justify-center gap-8 border-t border-border pt-10">
@@ -141,6 +134,8 @@ export default async function InsightsPage() {
             </a>
           </div>
         </section>
+
+        <SiteFooter />
       </main>
     </div>
   )
