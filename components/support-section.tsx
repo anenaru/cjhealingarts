@@ -18,12 +18,23 @@ export function SupportSection() {
             </p>
             <p>
               Please send your gift via Zelle to{' '}
-              <span className="text-foreground">754-234-2324</span>.
+              <a
+                href="tel:+17542342324"
+                className="text-foreground transition-colors hover:text-muted-foreground"
+              >
+                (754)-234-2324
+              </a>
+              .
             </p>
             <p>
-              Call us at{' '}
-              <span className="text-foreground">(754) 368-3864</span> for
-              further inquiry.
+              Call{' '}
+              <a
+                href="tel:+17542342324"
+                className="text-foreground transition-colors hover:text-muted-foreground"
+              >
+                (754)-234-2324
+              </a>{' '}
+              for any further inquiries.
             </p>
           </div>
         </div>

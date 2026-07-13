@@ -54,6 +54,14 @@ export function SiteFooter() {
           {`© ${new Date().getFullYear()} CJ Healing Arts. All Rights Reserved`}
         </p>
       </div>
+
+      <div className="mt-6 flex justify-end">
+        <p className="text-right text-sm text-muted-foreground">
+          CJ Healing Arts is a Vocational Rehab Provider
+          <br />
+          #F814615794001
+        </p>
+      </div>
     </footer>
   )
 }
