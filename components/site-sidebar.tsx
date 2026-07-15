@@ -9,8 +9,9 @@ const navItems = [
   { label: 'Services', href: '/#services', index: '02' },
   { label: 'Support Independence', href: '/#support', index: '03' },
   { label: 'News & Resources', href: '/insights', index: '04' },
-  { label: 'About Us', href: '/about-us', index: '05' },
-  { label: 'Contact Us', href: '/contact-us', index: '06' },
+  { label: 'Our Community', href: '/our-community', index: '05' },
+  { label: 'About Us', href: '/about-us', index: '06' },
+  { label: 'Contact Us', href: '/contact-us', index: '07' },
 ]
 
 export function SiteSidebar() {

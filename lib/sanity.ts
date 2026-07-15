@@ -68,3 +68,21 @@ export async function getAllInsightSlugs(): Promise<string[]> {
   )
   return results.map((r) => r.slug.current)
 }
+
+export type SanityCommunityPhoto = {
+  _id: string
+  image: SanityImageSource & { alt?: string }
+  caption?: string
+  date: string
+}
+
+export async function getAllCommunityPhotos(): Promise<SanityCommunityPhoto[]> {
+  return client.fetch(
+    /* groq */ `*[_type == "communityPhoto"] | order(date desc) {
+      _id,
+      image { ..., alt },
+      caption,
+      date
+    }`
+  )
+}
