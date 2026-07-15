@@ -1,5 +1,7 @@
 import { PortableText as SanityPortableText } from 'next-sanity'
 import type { PortableTextComponents } from 'next-sanity'
+import Image from 'next/image'
+import { urlFor } from '@/lib/sanity'
 
 const components: PortableTextComponents = {
   block: {
@@ -19,6 +21,28 @@ const components: PortableTextComponents = {
         {children}
       </blockquote>
     ),
+  },
+  types: {
+    image: ({ value }) => {
+      if (!value?.asset) return null
+      const imageUrl = urlFor(value).width(768).url()
+      return (
+        <figure className="my-2">
+          <Image
+            src={imageUrl}
+            alt={value.alt ?? ''}
+            width={768}
+            height={512}
+            className="w-full rounded-xl object-cover"
+          />
+          {value.caption && (
+            <figcaption className="mt-2 text-center text-sm text-muted-foreground">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      )
+    },
   },
   marks: {
     link: ({ children, value }) => (
