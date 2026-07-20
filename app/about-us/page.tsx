@@ -13,6 +13,7 @@ type Member = {
   name: string
   role: string
   image: string
+  objectPosition?: string
 }
 
 const members: Member[] = [
@@ -35,6 +36,7 @@ const members: Member[] = [
     name: 'Brandon Swaby',
     role: 'Board Member',
     image: '/team/portrait4.jpg',
+    objectPosition: 'top',
   },
   {
     name: 'Sylvia Troyer',
@@ -88,6 +90,7 @@ export default function AboutUsPage() {
                     width={416}
                     height={416}
                     className="h-full w-full object-cover"
+                    style={{ objectPosition: member.objectPosition ?? 'center' }}
                   />
                 </div>
                 <h2 className="mt-6 text-xl font-semibold tracking-tight">
