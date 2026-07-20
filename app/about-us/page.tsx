@@ -51,6 +51,11 @@ const members: Member[] = [
     role: 'Board Member',
     image: '/team/portrait7.png',
   },
+  {
+    name: 'Andrew Spurgeon',
+    role: 'Board Member',
+    image: '/team/portrait8.png',
+  },
 ]
 
 export default function AboutUsPage() {
