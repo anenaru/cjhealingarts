@@ -3,6 +3,26 @@ import type { PortableTextComponents } from 'next-sanity'
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
 
+function getYouTubeId(url: string): string | null {
+  try {
+    const parsed = new URL(url)
+    // Standard: youtube.com/watch?v=ID
+    if (parsed.hostname.includes('youtube.com')) {
+      return parsed.searchParams.get('v')
+    }
+    // Short: youtu.be/ID
+    if (parsed.hostname === 'youtu.be') {
+      return parsed.pathname.slice(1)
+    }
+    // Embed: youtube.com/embed/ID
+    const embedMatch = parsed.pathname.match(/\/embed\/([^/?]+)/)
+    if (embedMatch) return embedMatch[1]
+  } catch {
+    // invalid URL
+  }
+  return null
+}
+
 const components: PortableTextComponents = {
   block: {
     normal: ({ children }) => (
@@ -35,6 +55,28 @@ const components: PortableTextComponents = {
             height={512}
             className="w-full rounded-xl object-cover"
           />
+          {value.caption && (
+            <figcaption className="mt-2 text-center text-sm text-muted-foreground">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      )
+    },
+    youtube: ({ value }) => {
+      const id = value?.url ? getYouTubeId(value.url) : null
+      if (!id) return null
+      return (
+        <figure className="my-2">
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src={`https://www.youtube.com/embed/${id}`}
+              title={value.caption ?? 'YouTube video'}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
           {value.caption && (
             <figcaption className="mt-2 text-center text-sm text-muted-foreground">
               {value.caption}

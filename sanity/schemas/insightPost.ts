@@ -89,6 +89,7 @@ export const insightPost = defineType({
           },
         },
         { type: 'image', options: { hotspot: true } },
+        { type: 'youtube' },
       ],
     }),
   ],
