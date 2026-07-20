@@ -34,7 +34,7 @@ const members: Member[] = [
   {
     name: 'Brandon Swaby',
     role: 'Board Member',
-    image: '/team/portrait4.png',
+    image: '/team/portrait4.jpg',
   },
   {
     name: 'Sylvia Troyer',
